@@ -1,0 +1,51 @@
+---
+// ExperienceTab.astro — Experience tab content
+import { experience } from '../../data/portfolio';
+---
+
+<section id="content-experience" class="space-y-4">
+  <h2 class="text-lg font-bold" style="font-family: var(--font-headline);">Experiencia</h2>
+
+  {experience.map((exp) => (
+    <article class="card card-lift p-5 relative overflow-hidden">
+      <!-- Left accent bar -->
+      <div class={`absolute top-0 left-0 w-1 h-full rounded-l-2xl ${exp.active ? 'exp-bar-active' : 'exp-bar-inactive'}`}></div>
+
+      <div class="pl-3">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={`background: ${exp.active ? 'var(--color-gold-soft)' : 'var(--color-night-card-high)'}; border: 1px solid var(--color-night-border);`}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={exp.active ? 'var(--color-gold)' : 'var(--color-muted)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold" style="font-family: var(--font-headline); color: var(--color-white);">{exp.role}</h3>
+              <p class="text-xs" style="color: var(--color-muted);">{exp.company} · {exp.location}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class={exp.active ? 'badge-gold' : 'skill-tag'} style={!exp.active ? 'font-size: 0.6875rem;' : ''}>
+              {exp.type}
+            </span>
+            <span class="text-xs font-medium whitespace-nowrap" style="color: var(--color-muted-dim);">
+              {exp.period}
+            </span>
+          </div>
+        </div>
+
+        <!-- Tasks -->
+        <ul class="space-y-1.5 ml-0.5">
+          {exp.tasks.map((task) => (
+            <li class="flex items-start gap-2 text-xs leading-relaxed" style="color: var(--color-muted);">
+              <span class="mt-1 flex-shrink-0" style="color: var(--color-gold);">▸</span>
+              <span set:html={task} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  ))}
+</section>

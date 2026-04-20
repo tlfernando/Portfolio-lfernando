@@ -1,0 +1,29 @@
+---
+// PersonalDataCard.astro — Personal info card with icon rows
+import { personalInfo } from '../../data/portfolio';
+
+const iconPaths: Record<string, string> = {
+  email: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+  location: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  briefcase: '<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+};
+---
+
+<div class="card p-5">
+  <h2 class="section-label mb-4">Datos Personales</h2>
+
+  <div class="space-y-3">
+    {personalInfo.map((info) => (
+      <div class="flex items-center gap-3">
+        <div class="social-icon" style="width: 2rem; height: 2rem;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconPaths[info.icon]} />
+        </div>
+        <div>
+          <p class="text-sm font-medium" style="color: var(--color-white);">{info.value}</p>
+          <p class="text-xs" style="color: var(--color-muted-dim);">{info.label}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,22 @@
+---
+// SkillsCard.astro — Grouped skill badges
+import { skillGroups } from '../../data/portfolio';
+---
+
+<div class="card p-5">
+  <h2 class="section-label mb-4">Habilidades</h2>
+
+  {skillGroups.map((group, i) => (
+    <div class={i < skillGroups.length - 1 ? 'mb-4' : ''}>
+      <p class="text-xs font-semibold mb-2" style="color: var(--color-muted-dim);">{group.label}</p>
+      <div class="flex flex-wrap gap-1.5">
+        {group.items.map((skill) => (
+          <span class="skill-tag">
+            <span class="w-1.5 h-1.5 rounded-full" style={`background: ${skill.color};`}></span>
+            {skill.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>

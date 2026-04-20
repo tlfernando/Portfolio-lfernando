@@ -1,0 +1,36 @@
+---
+// ContactCta.astro — Call-to-action contact section
+import { socialLinks } from '../../data/portfolio';
+
+const linkedIn = socialLinks.find((l) => l.icon === 'linkedin');
+---
+
+<section class="card p-6 sm:p-8 text-center relative overflow-hidden">
+  <!-- Gold glow -->
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 pointer-events-none"
+    style="background: radial-gradient(ellipse, rgba(242,184,0,0.06) 0%, transparent 70%); filter: blur(20px);"
+  ></div>
+
+  <p class="section-label mb-3 relative z-10">¿Trabajamos juntos?</p>
+  <h2
+    class="text-2xl sm:text-3xl font-black mb-3 relative z-10"
+    style="font-family: var(--font-headline);"
+  >
+    Hagamos algo <span style="color: var(--color-gold);">increíble</span>
+  </h2>
+  <p class="text-sm mb-6 relative z-10" style="color: var(--color-muted); max-width: 28rem; margin: 0 auto 1.5rem;">
+    Disponible para proyectos freelance y oportunidades laborales.
+  </p>
+  <div class="flex flex-wrap items-center justify-center gap-3 relative z-10">
+    <a href="mailto:luisferucla94@gmail.com" class="btn-gold">
+      Enviar Email
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    {linkedIn && (
+      <a href={linkedIn.href} target="_blank" rel="noopener" class="btn-ghost">
+        LinkedIn
+      </a>
+    )}
+  </div>
+</section>

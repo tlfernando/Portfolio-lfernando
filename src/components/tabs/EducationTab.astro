@@ -1,0 +1,55 @@
+---
+// EducationTab.astro — Education tab content
+import { education } from '../../data/portfolio';
+
+const universities = education.filter((e) => e.type === 'university');
+const courses = education.filter((e) => e.type === 'course');
+---
+
+<section id="content-education" class="space-y-4 hidden">
+  <h2 class="text-lg font-bold" style="font-family: var(--font-headline);">Formación Académica</h2>
+
+  {universities.map((edu) => (
+    <article class="card card-lift p-5 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-1 h-full rounded-l-2xl exp-bar-active"></div>
+      <div class="pl-3">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-gold-soft); border: 1px solid var(--color-night-border);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold" style="font-family: var(--font-headline); color: var(--color-white);">{edu.title}</h3>
+              <p class="text-xs" style="color: var(--color-muted);">{edu.institution}</p>
+            </div>
+          </div>
+          <span class="text-xs font-medium whitespace-nowrap" style="color: var(--color-muted-dim);">{edu.period}</span>
+        </div>
+      </div>
+    </article>
+  ))}
+
+  {courses.length > 0 && (
+    <h2 class="text-lg font-bold mt-4" style="font-family: var(--font-headline);">Cursos & Certificaciones</h2>
+  )}
+
+  {courses.map((edu) => (
+    <article class="card card-lift p-5 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-1 h-full rounded-l-2xl exp-bar-inactive"></div>
+      <div class="pl-3">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-night-card-high); border: 1px solid var(--color-night-border);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold" style="font-family: var(--font-headline); color: var(--color-white);">{edu.title}</h3>
+              <p class="text-xs" style="color: var(--color-muted);">{edu.institution}</p>
+            </div>
+          </div>
+          <span class="text-xs font-medium whitespace-nowrap" style="color: var(--color-gold);">{edu.period}</span>
+        </div>
+      </div>
+    </article>
+  ))}
+</section>

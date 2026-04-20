@@ -1,0 +1,26 @@
+---
+// SiteFooter.astro — Minimal footer with links
+import { socialLinks } from '../../data/portfolio';
+
+const year = new Date().getFullYear();
+const footerLinks = socialLinks.filter((l) => l.icon !== 'phone');
+---
+
+<footer class="pt-4 pb-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+  <p class="text-xs" style="color: var(--color-muted-dim);">
+    © {year} Luis Fernando Torres · Lima, Perú
+  </p>
+  <div class="flex items-center gap-4">
+    {footerLinks.map((link) => (
+      <a
+        href={link.href}
+        target={link.icon !== 'email' ? '_blank' : undefined}
+        rel={link.icon !== 'email' ? 'noopener' : undefined}
+        class="footer-link text-xs transition-colors duration-200"
+        style="color: var(--color-muted-dim);"
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+</footer>

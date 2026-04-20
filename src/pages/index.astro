@@ -1,0 +1,104 @@
+---
+// src/pages/index.astro — Portfolio homepage
+// Assembles sidebar + main content from modular components.
+
+import Layout from '../layouts/Layout.astro';
+
+// Sidebar
+import ProfileCard from '../components/sidebar/ProfileCard.astro';
+import CvDownload from '../components/sidebar/CvDownload.astro';
+import PersonalDataCard from '../components/sidebar/PersonalDataCard.astro';
+import SkillsCard from '../components/sidebar/SkillsCard.astro';
+
+// Main content
+import AboutSection from '../components/sections/AboutSection.astro';
+import ExperienceTab from '../components/tabs/ExperienceTab.astro';
+import EducationTab from '../components/tabs/EducationTab.astro';
+import ProjectsTab from '../components/tabs/ProjectsTab.astro';
+import ContactCta from '../components/sections/ContactCta.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+---
+
+<Layout>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- ── Left Sidebar ── -->
+      <aside class="lg:col-span-4 space-y-5 lg:sticky lg:top-8 lg:self-start">
+        <ProfileCard />
+        <CvDownload />
+        <PersonalDataCard />
+        <SkillsCard />
+      </aside>
+
+      <!-- ── Main Content ── -->
+      <main class="lg:col-span-8 space-y-6">
+        <AboutSection />
+
+        <!-- Tab navigation -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+          <button class="tab-btn active" data-tab="experience" id="tab-experience">Experiencia</button>
+          <button class="tab-btn" data-tab="education" id="tab-education">Educación</button>
+          <button class="tab-btn" data-tab="projects" id="tab-projects">Proyectos</button>
+        </div>
+
+        <!-- Tab contents -->
+        <ExperienceTab />
+        <EducationTab />
+        <ProjectsTab />
+
+        <ContactCta />
+        <SiteFooter />
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ── Client-side interactivity ── -->
+  <script>
+    // ── Tabs ──
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+    const contents: Record<string, HTMLElement | null> = {
+      experience: document.getElementById('content-experience'),
+      education: document.getElementById('content-education'),
+      projects: document.getElementById('content-projects'),
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        if (!target) return;
+
+        tabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        Object.entries(contents).forEach(([key, el]) => {
+          if (el) el.classList.toggle('hidden', key !== target);
+        });
+      });
+    });
+
+    // ── Dark Mode Toggle ──
+    const toggle = document.getElementById('theme-toggle');
+    const iconSun = document.getElementById('icon-sun');
+    const iconMoon = document.getElementById('icon-moon');
+
+    function updateIcons(theme: string) {
+      if (iconSun && iconMoon) {
+        iconSun.style.display = theme === 'dark' ? 'block' : 'none';
+        iconMoon.style.display = theme === 'light' ? 'block' : 'none';
+      }
+    }
+
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    updateIcons(currentTheme);
+
+    toggle?.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateIcons(next);
+    });
+  </script>
+</Layout>
