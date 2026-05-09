@@ -40,6 +40,7 @@ export interface Project {
   image?: string;
   github?: string;
   link?: string;
+  apk?: string;
   featured?: boolean;
 }
 
@@ -265,10 +266,22 @@ export const projects: Project[] = [
   },
   // ── Personales ──
   {
-    title: 'openCash',
-    description: 'App de finanzas personales con módulos de gastos, recurrentes y ahorros.',
-    stack: ['NestJS', 'PostgreSQL', 'Angular'],
+    title: 'Opencash',
+    description: 'Solución integral para la gestión de finanzas personales, disponible como aplicación web y móvil (Android). Permite el control detallado de gastos, ingresos recurrentes y metas de ahorro. Nota: La aplicación utiliza recursos gratuitos, por lo que el primer arranque puede tardar aproximadamente 50 segundos.',
+    stack: ['NestJS', 'PostgreSQL', 'Vue.js', 'Android'],
     type: 'personal',
+    image: '/images/projects/Opencash-logo.png',
+    link: 'https://opencash.vercel.app/',
+    apk: '/downloads/opencash.apk',
     featured: true,
+  },
+  {
+    title: 'Portfolio Personal',
+    description: 'Plataforma web minimalista y de alto rendimiento diseñada para presentar mi marca personal. Enfocada en la experiencia de usuario y optimización SEO, con un diseño moderno y responsivo.',
+    stack: ['Astro', 'TypeScript', 'Tailwind CSS'],
+    type: 'personal',
+    image: '/images/projects/portfolio-lfernandow-astro.png',
+    github: 'https://github.com/tlfernando/Portfolio-lfernando',
+    featured: false,
   },
 ];
